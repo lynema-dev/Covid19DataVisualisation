@@ -34,11 +34,13 @@ def main():
     register_matplotlib_converters()
     pd.options.mode.chained_assignment = None
 
-    movingaveragebarchartcomparison(location, movingaveragelower, movingaverageupper, fieldname, df, False, populationminimum, True, groupbyfield)
+    movingaveragebarchartcomparison(location, movingaveragelower, movingaverageupper, fieldname, df, 
+        False, populationminimum, True, groupbyfield)
 
 
 #bar chart or relative moving averages
-def movingaveragebarchartcomparison(location, movingaveragelower, movingaverageupper, fieldname, df, exporttocsv, populationminimum, byPerMillion, groupbyfield):
+def movingaveragebarchartcomparison(location, movingaveragelower, movingaverageupper, fieldname, df, 
+    exporttocsv, populationminimum, byPerMillion, groupbyfield):
 
     maxdate = (df['date']).max()
     maxdate = maxdate.strftime('%Y%m%d')
@@ -75,9 +77,11 @@ def movingaveragebarchartcomparison(location, movingaveragelower, movingaverageu
     ax.tick_params(axis='x', which='minor', labelsize=6)
     ax.set_xticklabels(pd.concat([df3[groupbyfield],dfworld[groupbyfield]]), rotation = 50, ha="right")
 
-    plt.bar(df3[groupbyfield],df3[fieldname + '_MAD'], color = (df3[fieldname + '_MAD'] > 0).map({True: 'grey',False: 'slategrey'}))
+    plt.bar(df3[groupbyfield],df3[fieldname + '_MAD'], color = (df3[fieldname + '_MAD'] > 0)
+        .map({True: 'grey',False: 'slategrey'}))
     plt.bar(dfworld[groupbyfield],dfworld[fieldname + '_MAD'], color = 'black')
-    charttitle = 'Covid19 ' + fieldname + chartstring +  ', ' + str(movingaveragelower) + ' day minus ' + str(movingaverageupper) + ' day average, ' + maxdate
+    charttitle = 'Covid19 ' + fieldname + chartstring +  ', ' + str(movingaveragelower) + ' day minus ' \
+        + str(movingaverageupper) + ' day average, ' + maxdate
     plt.title(charttitle)
     plt.show()
 
@@ -106,7 +110,8 @@ def linechartcomparison(location, location2, fieldname, df,exporttocsv):
 
 
 #line chart of relative moving averages
-def movingaveragelinechartcomparison(location, movingaveragelower, movingaverageupper, fieldname, df, exporttocsv):
+def movingaveragelinechartcomparison(location, movingaveragelower, movingaverageupper, fieldname,
+     df, exporttocsv):
 
     df2 = df[df['location'] == location]
     df2[fieldname + '_MAL'] = df2[fieldname].transform(lambda x: x.rolling(movingaveragelower, 1).mean())
@@ -115,7 +120,8 @@ def movingaveragelinechartcomparison(location, movingaveragelower, movingaverage
 
     plt.figure(figsize=(10,6)) 
     plt.plot(df2['date'], df2[fieldname + '_MAD'], color = 'slategrey', label = 'ma')
-    charttitle ='Covid19 ' + location + ' ' +  fieldname + ' - ' + str(movingaveragelower) + ' day minus ' + str(movingaverageupper) + ' day average'
+    charttitle ='Covid19 ' + location + ' ' +  fieldname + ' - ' + str(movingaveragelower) \
+        + ' day minus ' + str(movingaverageupper) + ' day average'
     plt.title(charttitle)
     plt.show()
 
@@ -129,7 +135,8 @@ if __name__ == '__main__':
     main()
 
         #example implementations
-        #movingaveragebarchartcomparison(location, movingaveragelower, movingaverageupper, fieldname, df, False, populationminimum, True, groupbyfield)
+        #movingaveragebarchartcomparison(location, movingaveragelower, movingaverageupper, fieldname, df, 
+        #   False, populationminimum, True, groupbyfield)
         #movingaveragelinechartcomparison(location, movingaveragelower, movingaverageupper, fieldname, df, False)
         #linechartcomparison(location, 'World', fieldname, df, False)
 
