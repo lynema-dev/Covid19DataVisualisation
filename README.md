@@ -1,4 +1,4 @@
-#Covid19 Data Visualisation in Python
+Covid19 Data Visualisation in Python
 
 ourworldindata.org kindly offers an updated csv file which can easily be extracted for analysis on this subject. 
 
